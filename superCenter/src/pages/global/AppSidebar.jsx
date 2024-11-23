@@ -18,10 +18,12 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
+      component={< Link to={to} />}
       active={selected === title}
       style={{
         color: colors.grey[100],
@@ -30,8 +32,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       icon={icon}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
+    </MenuItem >
   );
 };
 
@@ -112,6 +113,13 @@ const AppSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="SignUp Metrics"
+              to="/signUpMetrics"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant="h6"
@@ -135,8 +143,15 @@ const AppSidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="/invoices"
+              title="Finances"
+              to="/finances"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Cashflow"
+              to="/cashflow"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
