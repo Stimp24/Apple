@@ -12,11 +12,18 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-
+import { useEffect } from 'react'
+import { useUserContext } from '../../context/UserContext';
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { usersList, getUserList } = useUserContext();
 
+  useEffect(() => {
+
+    getUserList();
+
+  }, []);
   return (
     <Box m="20px">
       {/* HEADER */}
