@@ -1,9 +1,6 @@
-import React, { useContext, createContext, useMemo, useState, useEffect } from 'react';
-import { getContractors, getUsers } from '../service/user.service';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import userDefaults from '../defaults/userDefaults';
-import {
-  useQuery,
-} from '@tanstack/react-query'
+import { getContractors, getUsers } from '../service/user.service';
 const UserContext = createContext(userDefaults);
 
 export const useUserContext = () => useContext(UserContext);
@@ -33,18 +30,15 @@ const UserProvider = ({ children }) => {
   };
 
   const getUserList = async () => {
-    console.log('getUserList')
-    //setIsLoading(true);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { isLoading, isPending, error, data, isFetching } = useQuery(
-      'getUsersData', () => { return fetch(getUsers()) }
-    )
-
-
-    console.log(data.data)
-    return data
+    try {
+      setIsLoading(true);
+      const response = await getUsers();
+      setIsLoading(false);
+      setUsersList(response ?? []);
+    } catch (error) {
+      return error;
+    }
   };
-
   useMemo(() => {
     if (contractorsList) {
       setTotalJunkRemoval(

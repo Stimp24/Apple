@@ -1,26 +1,26 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import TrafficIcon from "@mui/icons-material/Traffic";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { useEffect } from 'react';
+import BarChart from "../../components/BarChart";
+import GeographyChart from "../../components/GeographyChart";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-import { useEffect } from 'react'
+import StatBox from "../../components/StatBox";
 import { useUserContext } from '../../context/UserContext';
+import { mockTransactions } from "../../data/mockData";
+import { tokens } from "../../theme";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { usersList, getUserList } = useUserContext();
+  const { getContractorsList, getUserList, contractorsList } = useUserContext();
 
   useEffect(() => {
-
+    getContractorsList();
     getUserList();
 
   }, []);
@@ -62,10 +62,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
+            title={contractorsList?.length}
+            subtitle="Total Contractors"
+            progress={contractorsList?.length / 1000}
+            increase={(contractorsList?.length / 1000 * 100) + '%'}
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -81,10 +81,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
+            title={contractorsList?.length}
+            subtitle="Total Users"
+            progress={contractorsList?.length / 1000}
+            increase={(contractorsList?.length / 1000 * 100) + '%'}
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
