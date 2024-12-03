@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import userDefaults from '../defaults/userDefaults';
 import { getContractors, getUsers } from '../service/user.service';
 const UserContext = createContext(userDefaults);

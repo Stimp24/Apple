@@ -6,8 +6,11 @@ import Header from "../../components/Header";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
 import ListData from "../../components/ListData";
+import { useFinancialContext } from '../../context/FinancialContext';
 const Finances = () => {
   const theme = useTheme();
+  const { balance } = useFinancialContext();
+  console.log(balance)
   const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "id", headerName: "ID" },
@@ -45,12 +48,12 @@ const Finances = () => {
   ];
   const mrrData = [
     {
-      data: 984600,
-      description: "Total MRR",
+      data: balance,
+      description: "Total Balance",
     },
     {
-      data: 9875,
-      description: "Paying Customers",
+      data: 90000,
+      description: "Pending Balance",
     },
     {
       data: 32500,
@@ -159,7 +162,7 @@ const Finances = () => {
             </Grid>
 
             <Grid item xs={2}>
-              <ListData dataList={mrrData} />
+              <ListData dataList={balance && mrrData} />
             </Grid>
           </Grid>
         </Box>
